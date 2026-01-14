@@ -1,8 +1,8 @@
 package game;
-import game.sushi.CucumberRoll;
-import game.sushi.RolledSushi;
-import game.sushi.Sushi;
-import game.sushi.Tuna;
+import game.character.sushi.CucumberRoll;
+import game.character.sushi.RolledSushi;
+import game.character.sushi.Sushi;
+import game.character.sushi.Tuna;
 
 public class Main {
     public static void main(String[] args) {

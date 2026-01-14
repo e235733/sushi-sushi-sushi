@@ -1,4 +1,4 @@
-package game.sushi;
+package game.character.sushi;
 
 public abstract class NigiriSushi extends Sushi {
     public NigiriSushi(String name, int hp, int power) {
