@@ -10,4 +10,8 @@ public abstract class Sushi {
         this.hp = hp;
         this.power = power;
     }
+
+    public void greeting() {
+        System.out.println("Irasshaimase!");
+    }
 }
