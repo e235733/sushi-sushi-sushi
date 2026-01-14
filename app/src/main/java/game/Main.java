@@ -1,7 +1,9 @@
 package game;
+import game.sushi.Tuna;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        Tuna tuna = new Tuna("maguro", 100, 10);
+        tuna.slap();
     }
 }
