@@ -1,17 +1,17 @@
-package game.sushi;
+package game.character;
 
-public abstract class Sushi {
+public abstract class Character {
     protected String name;
     protected int hp;
     protected int power;
 
-    public Sushi(String name, int hp, int power) {
+    public Character(String name, int hp, int power) {
         this.name = name;
         this.hp = hp;
         this.power = power;
     }
 
     public void greeting() {
-        System.out.println("Irasshaimase!");
+        System.out.println("Hello!");
     }
 }
