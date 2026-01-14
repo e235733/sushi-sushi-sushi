@@ -11,7 +11,7 @@ public class Player extends Character {
 
     // シンプルな攻撃メソッド ナイフ
     public void knifeAttack(Sushi target) {
-        System.out.println(this.name + " は " + target.getName() + " ナイフで切りつけた!");
+        System.out.println(this.name + " は " + target.getName() + " をナイフで切りつけた!");
         target.damaged(this.power);
     }
 
