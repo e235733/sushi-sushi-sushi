@@ -1,9 +1,14 @@
 package game.character.player;
 
+import java.util.List;
+import java.util.Random;
+
 import game.character.Character;
 import game.character.sushi.Sushi;
 
 public class Player extends Character {
+
+    Random random = new Random();
     
     public Player(String name, int hp, int power) {
         super(name, hp, power);
@@ -16,13 +21,24 @@ public class Player extends Character {
     }
 
     // 範囲攻撃メソッド お茶
-    public void teaAttack() {
+    public void teaAttack(List<Sushi> targetList) {
         System.out.println(this.name + " はお茶を撒き散らした!");
+
+        for (Sushi target : targetList) {
+            System.out.println(target.getName() + " にお茶がかかった！");
+        }
     }
 
-    // 敵を鈍化させるメソッド 納豆
-    public void nattoAttack() {
+    // 一部の敵を鈍化させるメソッド 納豆
+    public void nattoAttack(List<Sushi> targetList) {
         System.out.println(this.name + " は納豆を仕掛けた!");
+    
+        for (Sushi target : targetList) {
+            // 乱数を生成し、ヒットを確率的にする
+            if (random.nextInt(100) < 50) {
+                System.out.println(target.getName() + " がネバネバにかかった！");
+            }
+        }
     }
 
     // 回復するメソッド
