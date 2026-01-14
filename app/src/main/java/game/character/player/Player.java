@@ -1,6 +1,7 @@
 package game.character.player;
 
 import game.character.Character;
+import game.character.sushi.Sushi;
 
 public class Player extends Character {
     
@@ -9,8 +10,9 @@ public class Player extends Character {
     }
 
     // シンプルな攻撃メソッド ナイフ
-    public void knifeAttack() {
-        System.out.println(this.name + " はナイフで切りつけた!");
+    public void knifeAttack(Sushi target) {
+        System.out.println(this.name + " は " + target.getName() + " ナイフで切りつけた!");
+        target.damaged(this.power);
     }
 
     // 範囲攻撃メソッド お茶

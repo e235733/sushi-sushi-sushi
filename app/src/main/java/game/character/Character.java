@@ -19,4 +19,9 @@ public abstract class Character {
     public void damaged(int power) {
         System.out.println(this.name + " は " + power + " ダメージを受けた！");
     }
+
+    // 名前の getter
+    public String getName() {
+        return this.name;
+    }
 }
