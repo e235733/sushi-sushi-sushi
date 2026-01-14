@@ -6,10 +6,10 @@ import game.character.sushi.Tuna;
 
 public class Main {
     public static void main(String[] args) {
-        Sushi tuna = new Tuna("Maguro", 100, 10);
+        Sushi tuna = new Tuna(100, 10);
         tuna.greeting();
 
-        RolledSushi cucumberRoll = new CucumberRoll("Kappa", 50, 50);
+        RolledSushi cucumberRoll = new CucumberRoll(50, 50);
         cucumberRoll.roll();
     }
 }
