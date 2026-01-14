@@ -6,6 +6,6 @@ public abstract class NigiriSushi extends Sushi {
     }
 
     public void slap() {
-        System.out.println("Tuna slapped!");
+        System.out.println(this.name + " slapped!");
     }
 }
