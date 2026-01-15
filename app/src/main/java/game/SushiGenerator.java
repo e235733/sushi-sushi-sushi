@@ -16,10 +16,8 @@ public class SushiGenerator {
     private List<Map<SushiType, Integer>> waves = new ArrayList<>();
 
     public SushiGenerator() {
-        this.numWaves = 4;
         // ウェーブ 0
         Map<SushiType, Integer> wave0 = new HashMap<>();
-        wave0.put(SushiType.TUNA, 2);
         wave0.put(SushiType.CUCUMBER_ROLL, 1);
         this.waves.add(wave0);
         // ウェーブ 1
@@ -35,6 +33,8 @@ public class SushiGenerator {
         wave3.put(SushiType.TUNA, 3);
         wave3.put(SushiType.CUCUMBER_ROLL, 2);
         this.waves.add(wave3);
+
+        this.numWaves = waves.size();
     }
 
     // ウェーブで出現する寿司を作成するメソッド
