@@ -6,14 +6,18 @@ import java.util.List;
 import java.util.Scanner;
 
 import game.character.player.Player;
-import game.character.sushi.CucumberRoll;
 import game.character.sushi.Sushi;
-import game.character.sushi.Tuna;
 
 public class GameManager {
 
     private Player player;
     private List<Sushi> sushiList = new ArrayList<Sushi>();
+    private SushiGenerator sushiGenerator = new SushiGenerator();
+
+    public enum SushiType{
+        TUNA,
+        CUCUMBER_ROLL
+    }
 
     Scanner scanner = new Scanner(System.in);
     
@@ -66,11 +70,11 @@ public class GameManager {
     private void generateSushi() {
         // sushi の生成
         for (int i=0; i<3; i++) {
-            Sushi tuna = new Tuna(100, 10, 50);
+            Sushi tuna = sushiGenerator.generate(SushiType.TUNA);
             this.sushiList.add(tuna);
         }
         for (int i=0; i<2; i++) {
-            Sushi cucumberRoll = new CucumberRoll(50, 50, 30);
+            Sushi cucumberRoll = sushiGenerator.generate(SushiType.CUCUMBER_ROLL);
             this.sushiList.add(cucumberRoll);
         }
     }
