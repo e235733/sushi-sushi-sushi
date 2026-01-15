@@ -23,11 +23,11 @@ public class GameManager {
         sushiList.add(tuna);
         sushiList.add(cucumberRoll);
 
-        tuna.greeting();
         cucumberRoll.roll(player);
 
-        player.greeting();
         player.knifeAttack(tuna);
+        player.knifeAttack(tuna);
+        
         player.teaAttack(sushiList);
         player.nattoAttack(sushiList);
         player.healed(10);
