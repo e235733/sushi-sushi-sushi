@@ -10,8 +10,8 @@ public class Player extends Character {
 
     Random random = new Random();
     
-    public Player(String name, int hp, int power) {
-        super(name, hp, power);
+    public Player(String name, int maxHp, int power) {
+        super(name, maxHp, power);
     }
 
     // シンプルな攻撃メソッド ナイフ
@@ -44,6 +44,9 @@ public class Player extends Character {
     // 回復するメソッド
     public void healed(int healAmount) {
         System.out.println(this.name + " は HP が " + healAmount + " 回復した！");
+        // 最大 HP は超えないようにする
+        this.hp = Math.min(this.hp + healAmount, maxHp);
+        System.out.println(this.name + " の HP は " + this.hp + " になった！");
     }
 
 }

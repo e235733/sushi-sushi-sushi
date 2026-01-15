@@ -4,8 +4,8 @@ import game.character.player.Player;
 
 public abstract class RolledSushi extends Sushi {
     
-    public RolledSushi(String name, int hp, int power) {
-        super(name, hp, power);
+    public RolledSushi(String name, int maxHp, int power) {
+        super(name, maxHp, power);
     }
 
     // 巻き寿司の攻撃 roll は、体当たりで大ダメージを与えるが自滅する
