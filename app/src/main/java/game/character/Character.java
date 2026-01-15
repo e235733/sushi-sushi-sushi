@@ -24,4 +24,9 @@ public abstract class Character {
     public String getName() {
         return this.name;
     }
+
+    // HP の getter
+    public int getHp() {
+        return this.hp;
+    }
 }
