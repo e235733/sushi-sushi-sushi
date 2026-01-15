@@ -6,14 +6,18 @@ import java.util.List;
 import java.util.Scanner;
 
 import game.character.player.Player;
-import game.character.sushi.CucumberRoll;
 import game.character.sushi.Sushi;
-import game.character.sushi.Tuna;
 
 public class GameManager {
 
     private Player player;
     private List<Sushi> sushiList = new ArrayList<Sushi>();
+    private SushiGenerator sushiGenerator = new SushiGenerator();
+
+    public enum SushiType{
+        TUNA,
+        CUCUMBER_ROLL
+    }
 
     Scanner scanner = new Scanner(System.in);
     
@@ -21,16 +25,24 @@ public class GameManager {
 
         this.initialSet();
 
-        this.generateSushi();
-
+        int turnId = 0;
         // ターンをループさせる
         while (true) {
+            this.generateSushi(turnId);
             this.playerTern();
             // 敵の死亡確認をし、死亡していたらリストから外す
             this.sushiList.removeIf(sushi -> sushi.isDead());
             // プレイヤーの攻撃後に敵が全滅していれば勝利
             if (this.sushiList.size() == 0) {
-                System.out.println("You Win!");
+                System.out.print("寿司を一掃した。");
+                // これ以上のウェーブが存在しない場合、勝利
+                if (turnId + 1 >= this.sushiGenerator.getNumWaves()) {
+                    System.out.println(this.player.getName() + "の勝利である！");
+                }
+                // 継続の場合もある
+                else {
+                    System.out.println("だが、まだ終わりではないようだ。");
+                }
                 break;
             }
             this.sushiTern();
@@ -45,6 +57,8 @@ public class GameManager {
                 System.out.println("You Win!");
                 break;
             }
+            // ターンをインクリメント
+            turnId++;
         }
 
         this.scanner.close();
@@ -63,19 +77,24 @@ public class GameManager {
     }
 
     // 敵を生成する
-    private void generateSushi() {
-        // sushi の生成
-        for (int i=0; i<3; i++) {
-            Sushi tuna = new Tuna(100, 10, 50);
-            this.sushiList.add(tuna);
-        }
-        for (int i=0; i<2; i++) {
-            Sushi cucumberRoll = new CucumberRoll(50, 50, 30);
-            this.sushiList.add(cucumberRoll);
+    private void generateSushi(int turnId) {
+        // 敵の発生ウェーブが残っているときのみ実行
+        if (turnId < sushiGenerator.getNumWaves()) {
+            // sushi の生成
+            List<Sushi> generatedSushiList = this.sushiGenerator.createWave(turnId);
+            int numGeneratedSushi = generatedSushiList.size();
+
+            for (int i=0; i<numGeneratedSushi; i++) {
+                Sushi generatedSushi = generatedSushiList.get(i);
+                // 出現メッセージ
+                System.out.println(generatedSushi.getName() + " が現れた！");
+                // ゲームの sushiList に追加
+                this.sushiList.add(generatedSushi);
+            }
         }
     }
 
-    // シンプルに、プレイヤーとマグロで戦わせる
+    // プレイヤーのターン
     private void playerTern() {
         int targetId;
         // プレイヤーに攻撃対象を選択させる
@@ -106,6 +125,7 @@ public class GameManager {
         this.player.knifeAttack(this.sushiList.get(targetId));
     }
 
+    // 寿司のターン
     private void sushiTern() {
         for (Sushi sushi : sushiList) {
             sushi.act(this.player);
