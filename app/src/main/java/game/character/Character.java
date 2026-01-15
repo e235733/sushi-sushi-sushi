@@ -7,7 +7,7 @@ public abstract class Character {
     protected int hp;
     protected int power;
 
-    private boolean isDead;
+    protected boolean isDead;
 
     public Character(String name, int maxHp, int power) {
         this.name = name;
@@ -40,6 +40,11 @@ public abstract class Character {
     // HP の getter
     public int getHp() {
         return this.hp;
+    }
+
+    // 攻撃力 の getter
+    public int getPower() {
+        return this.power;
     }
 
     // 死亡確認
