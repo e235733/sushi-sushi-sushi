@@ -7,15 +7,13 @@ import java.util.Scanner;
 
 import game.character.player.Player;
 import game.character.sushi.CucumberRoll;
-import game.character.sushi.NigiriSushi;
-import game.character.sushi.RolledSushi;
 import game.character.sushi.Sushi;
 import game.character.sushi.Tuna;
 
 public class GameManager {
 
     private Player player;
-    private List<NigiriSushi> sushiList = new ArrayList<NigiriSushi>();
+    private List<Sushi> sushiList = new ArrayList<Sushi>();
 
     Scanner scanner = new Scanner(System.in);
     
@@ -41,6 +39,12 @@ public class GameManager {
                 System.out.println("You Lose...");
                 break;
             }
+            // 巻き寿司は自滅するのでもう一度死亡確認、全滅していれば勝利
+            this.sushiList.removeIf(sushi -> sushi.isDead());
+            if (this.sushiList.size() == 0) {
+                System.out.println("You Win!");
+                break;
+            }
         }
 
         this.scanner.close();
@@ -52,7 +56,7 @@ public class GameManager {
         // 名前の入力
         String playerName = this.scanner.nextLine();
         // プレイヤーの作成
-        player = new Player(playerName, 100, 60);
+        player = new Player(playerName, 200, 60);
 
         System.out.println("名前 : " + player.getName() + " , HP : " + player.getHp() + " , 攻撃力 : " + player.getPower());
         
@@ -62,8 +66,12 @@ public class GameManager {
     private void generateSushi() {
         // sushi の生成
         for (int i=0; i<3; i++) {
-            NigiriSushi tuna = new Tuna(100, 10);
+            Sushi tuna = new Tuna(100, 10, 50);
             this.sushiList.add(tuna);
+        }
+        for (int i=0; i<2; i++) {
+            Sushi cucumberRoll = new CucumberRoll(50, 50, 30);
+            this.sushiList.add(cucumberRoll);
         }
     }
 
@@ -99,8 +107,8 @@ public class GameManager {
     }
 
     private void sushiTern() {
-        for (NigiriSushi nigiriSushi : sushiList) {
-            nigiriSushi.slap(this.player);
+        for (Sushi sushi : sushiList) {
+            sushi.act(this.player);
         }
     }
 }

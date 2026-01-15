@@ -7,7 +7,7 @@ public abstract class Character {
     protected int hp;
     protected int power;
 
-    private boolean isDead;
+    protected boolean isDead;
 
     public Character(String name, int maxHp, int power) {
         this.name = name;
