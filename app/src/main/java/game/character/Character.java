@@ -42,6 +42,11 @@ public abstract class Character {
         return this.hp;
     }
 
+    // 攻撃力 の getter
+    public int getPower() {
+        return this.power;
+    }
+
     // 死亡確認
     public boolean isDead() {
         return this.isDead;
