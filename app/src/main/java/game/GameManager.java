@@ -12,6 +12,7 @@ import game.character.sushi.Tuna;
 public class GameManager {
     
     public void gameStart() {
+    
         Sushi tuna = new Tuna(100, 10);
         tuna.greeting();
 
