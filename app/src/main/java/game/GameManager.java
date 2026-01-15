@@ -13,17 +13,19 @@ public class GameManager {
     
     public void gameStart() {
     
+        // player の生成
+        Player player = new Player("ムラサキ", 200, 50);
+        // sushi の生成
         Sushi tuna = new Tuna(100, 10);
-        tuna.greeting();
-
         RolledSushi cucumberRoll = new CucumberRoll(50, 50);
-        cucumberRoll.roll();
-
+        // sushi list の作成
         List<Sushi> sushiList = new ArrayList<>();
         sushiList.add(tuna);
         sushiList.add(cucumberRoll);
 
-        Player player = new Player("ムラサキ", 200, 50);
+        tuna.greeting();
+        cucumberRoll.roll(player);
+
         player.greeting();
         player.knifeAttack(tuna);
         player.teaAttack(sushiList);
