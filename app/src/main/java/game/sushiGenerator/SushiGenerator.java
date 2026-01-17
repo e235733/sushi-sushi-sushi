@@ -1,7 +1,6 @@
-package game;
+package game.sushiGenerator;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,27 +12,13 @@ import game.character.sushi.nigiriSushi.Tuna;
 public class SushiGenerator {
 
     private int numWaves;
-    private List<Map<SushiType, Integer>> waves = new ArrayList<>();
+    private List<Map<SushiType, Integer>> waves;
+
+    WaveLoader waveLoader = new WaveLoader();
 
     public SushiGenerator() {
-        // ウェーブ 0
-        Map<SushiType, Integer> wave0 = new HashMap<>();
-        wave0.put(SushiType.CUCUMBER_ROLL, 1);
-        this.waves.add(wave0);
-        // ウェーブ 1
-        Map<SushiType, Integer> wave1 = new HashMap<>();
-        wave1.put(SushiType.TUNA, 1);
-        wave1.put(SushiType.CUCUMBER_ROLL, 3);
-        this.waves.add(wave1);
-        // ウェーブ 2 (空)
-        Map<SushiType, Integer> wave2 = new HashMap<>();
-        this.waves.add(wave2);
-        // ウェーブ 3
-        Map<SushiType, Integer> wave3 = new HashMap<>();
-        wave3.put(SushiType.TUNA, 3);
-        wave3.put(SushiType.CUCUMBER_ROLL, 2);
-        this.waves.add(wave3);
 
+        this.waves = waveLoader.load();
         this.numWaves = waves.size();
     }
 
