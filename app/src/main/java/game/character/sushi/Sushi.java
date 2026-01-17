@@ -12,8 +12,12 @@ public abstract class Sushi extends Character{
     // 攻撃を発動する確率(%)
     private int probability;
 
-    public Sushi(String name, int maxHp, int power, int probability) {
-        super(name, maxHp, power);
+    // intercept, slope は 一次関数の切片と傾き
+    public Sushi(String name, int probability, int maxHpIntercept, int maxHpSlope, int powerIntercept, int powerSlope, int level) {
+
+        // 最大 HP と攻撃力を計算して代入
+        super(name, calculateMaxHp(level, maxHpIntercept, maxHpSlope), calculatePower(level, powerIntercept, powerSlope));
+
         this.probability = probability;
     }
 
@@ -25,5 +29,16 @@ public abstract class Sushi extends Character{
         }
     };
 
+    // レベルによる HP と攻撃力の設定メソッド
+    private static int calculateMaxHp(int level, int maxHpIntercept, int maxHpSlope) {
+        int maxHp = maxHpIntercept + maxHpSlope * level;
+        return maxHp;
+    }
+    private static int calculatePower(int level, int powerIntercept, int powerSlope) {
+        int power = powerIntercept + powerSlope * level;
+        return power;
+    }
+
+    // 攻撃メソッド
     protected abstract void attack(Player target);
 }

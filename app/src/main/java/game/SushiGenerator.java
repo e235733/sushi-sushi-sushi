@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import game.GameManager.SushiType;
-import game.character.sushi.CucumberRoll;
+import game.character.sushi.rolledSushi.CucumberRoll;
 import game.character.sushi.Sushi;
-import game.character.sushi.Tuna;
+import game.character.sushi.nigiriSushi.Tuna;
 
 public class SushiGenerator {
 
@@ -16,10 +16,8 @@ public class SushiGenerator {
     private List<Map<SushiType, Integer>> waves = new ArrayList<>();
 
     public SushiGenerator() {
-        this.numWaves = 4;
         // ウェーブ 0
         Map<SushiType, Integer> wave0 = new HashMap<>();
-        wave0.put(SushiType.TUNA, 2);
         wave0.put(SushiType.CUCUMBER_ROLL, 1);
         this.waves.add(wave0);
         // ウェーブ 1
@@ -35,6 +33,8 @@ public class SushiGenerator {
         wave3.put(SushiType.TUNA, 3);
         wave3.put(SushiType.CUCUMBER_ROLL, 2);
         this.waves.add(wave3);
+
+        this.numWaves = waves.size();
     }
 
     // ウェーブで出現する寿司を作成するメソッド
@@ -54,9 +54,9 @@ public class SushiGenerator {
     private Sushi generate(SushiType sushiType) {
         switch (sushiType) {
             case TUNA:
-                return new Tuna(100, 10, 50);
+                return new Tuna(0);
             case CUCUMBER_ROLL:
-                return new CucumberRoll(50, 50, 30);
+                return new CucumberRoll(0);
             default:
                 throw new IllegalArgumentException("unknown sushi: " + sushiType);
         }
