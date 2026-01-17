@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import game.character.player.Player;
 import game.character.sushi.Sushi;
+import game.sushiGenerator.SushiGenerator;
 
 public class GameManager {
 
