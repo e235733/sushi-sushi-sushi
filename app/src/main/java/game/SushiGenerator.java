@@ -54,9 +54,9 @@ public class SushiGenerator {
     private Sushi generate(SushiType sushiType) {
         switch (sushiType) {
             case TUNA:
-                return new Tuna(100, 10, 50);
+                return new Tuna(0);
             case CUCUMBER_ROLL:
-                return new CucumberRoll(50, 50, 30);
+                return new CucumberRoll(0);
             default:
                 throw new IllegalArgumentException("unknown sushi: " + sushiType);
         }
