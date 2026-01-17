@@ -1,8 +1,9 @@
-package game.character.sushi;
+package game.character.sushi.nigiriSushi;
+
+import game.character.sushi.Sushi;
+import game.character.player.Player;
 
 import java.util.Random;
-
-import game.character.player.Player;
 
 public abstract class NigiriSushi extends Sushi {
 

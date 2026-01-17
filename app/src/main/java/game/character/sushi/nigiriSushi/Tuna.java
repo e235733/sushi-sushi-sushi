@@ -1,4 +1,4 @@
-package game.character.sushi;
+package game.character.sushi.nigiriSushi;
 
 public class Tuna extends NigiriSushi {
 

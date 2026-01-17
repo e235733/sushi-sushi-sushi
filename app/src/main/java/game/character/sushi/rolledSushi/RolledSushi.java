@@ -1,5 +1,6 @@
-package game.character.sushi;
+package game.character.sushi.rolledSushi;
 
+import game.character.sushi.Sushi;
 import game.character.player.Player;
 
 public abstract class RolledSushi extends Sushi {

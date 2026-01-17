@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import game.GameManager.SushiType;
-import game.character.sushi.CucumberRoll;
+import game.character.sushi.rolledSushi.CucumberRoll;
 import game.character.sushi.Sushi;
-import game.character.sushi.Tuna;
+import game.character.sushi.nigiriSushi.Tuna;
 
 public class SushiGenerator {
 

@@ -1,4 +1,4 @@
-package game.character.sushi;
+package game.character.sushi.rolledSushi;
 
 public class CucumberRoll extends RolledSushi {
 
