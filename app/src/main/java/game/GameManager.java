@@ -1,9 +1,7 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
 import game.character.player.Player;
 import game.character.sushi.Sushi;
@@ -25,7 +23,7 @@ public class GameManager {
         CUCUMBER_ROLL
     }
 
-    Scanner scanner = new Scanner(System.in);
+    private InputManager inputManager = new InputManager();
     
     public void gameStart() {
 
@@ -57,15 +55,13 @@ public class GameManager {
             // ターンをインクリメント
             this.turnId++;
         }
-
-        this.scanner.close();
     }
 
     // ユーザが初期設定を行う
     private void initialSet() {
         System.out.print("Sushi Sushi Sushi !!\n" + "プレイヤー名を入力してください。\n" + " > ");
         // 名前の入力
-        String playerName = this.scanner.nextLine();
+        String playerName = inputManager.getStringInput();
         // プレイヤーの作成
         player = new Player(playerName, 200, 60);
 
@@ -100,25 +96,8 @@ public class GameManager {
         for (int i=0; i<numSushi; i++) {
             System.out.println(i + ". " + this.sushiList.get(i).getName() + " , HP : " + this.sushiList.get(i).getHp());
         }
-        // 入力処理
-        while (true) {
-            System.out.print(" > ");
-            try {
-                int inputNumber = this.scanner.nextInt();
-                // 範囲外ならもう一度
-                if (inputNumber < 0 || inputNumber >= numSushi) {
-                    System.out.println("エラー : 範囲内の値を入力してください");
-                    continue;
-                }
-                targetId = inputNumber;
-                break;
-            } catch (InputMismatchException e) {
-                // int 以外が入力された際の処理
-                System.out.println("エラー : 整数を入力してください");
-                scanner.next();
-            }
-        }
-
+        // 値を要求
+        targetId = inputManager.getNumericInput(numSushi);
         this.player.knifeAttack(this.sushiList.get(targetId));
     }
 
