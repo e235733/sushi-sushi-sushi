@@ -17,13 +17,12 @@ public class GameManager {
     private Player player;
     private List<Sushi> sushiList = new ArrayList<Sushi>();
     private SushiGenerator sushiGenerator = new SushiGenerator();
+    private InputManager inputManager = new InputManager();
 
     public enum SushiType{
         TUNA,
         CUCUMBER_ROLL
     }
-
-    private InputManager inputManager = new InputManager();
     
     public void gameStart() {
 
@@ -34,7 +33,7 @@ public class GameManager {
             // 寿司の生成
             this.generateSushi();
             // プレイヤーのターン
-            this.playerTern();
+            this.player.attack(this.sushiList);
             // 勝利判定
             this.checkPlayerWinning();
             if (this.isPlayerWinning) {
@@ -63,10 +62,9 @@ public class GameManager {
         // 名前の入力
         String playerName = inputManager.getStringInput();
         // プレイヤーの作成
-        player = new Player(playerName, 200, 60);
+        player = new Player(playerName, 200, this.inputManager);
 
-        System.out.println("名前 : " + player.getName() + " , HP : " + player.getHp() + " , 攻撃力 : " + player.getPower());
-        
+        System.out.println("名前 : " + player.getName() + " , HP : " + player.getHp());
     }
 
     // 敵を生成する
@@ -85,20 +83,6 @@ public class GameManager {
                 this.sushiList.add(generatedSushi);
             }
         }
-    }
-
-    // プレイヤーのターン
-    private void playerTern() {
-        int targetId;
-        // プレイヤーに攻撃対象を選択させる
-        System.out.println("攻撃対象を選んでください");
-        int numSushi = this.sushiList.size();
-        for (int i=0; i<numSushi; i++) {
-            System.out.println(i + ". " + this.sushiList.get(i).getName() + " , HP : " + this.sushiList.get(i).getHp());
-        }
-        // 値を要求
-        targetId = inputManager.getNumericInput(numSushi);
-        this.player.knifeAttack(this.sushiList.get(targetId));
     }
 
     // 寿司のターン

@@ -1,12 +1,17 @@
 package game.character.player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
+import game.InputManager;
 
 class PlayerTest {
 
+    private InputManager inputManager = new InputManager();
+
     private int maxHp = 50;
-    Player testMan = new Player("TestMan", maxHp, 0);
+    Player testMan = new Player("TestMan", maxHp, this.inputManager);
     
     @Test
     void hpIsZeroOrHigher() throws Exception {
