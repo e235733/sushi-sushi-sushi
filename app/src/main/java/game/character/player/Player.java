@@ -1,44 +1,59 @@
 package game.character.player;
 
-import java.util.List;
-import java.util.Random;
-
+import game.InputManager;
+import game.SushiList;
 import game.character.Character;
-import game.character.sushi.Sushi;
 
 public class Player extends Character {
 
-    Random random = new Random();
+    private Attack knifeAttack, teaAttack, nattoAttack = null;
+    private int numKnife = 1;
     
-    public Player(String name, int maxHp, int power) {
-        super(name, maxHp, power);
+    public Player(String name, int maxHp, InputManager inputManager) {
+        super(name, maxHp);
+        // 最初は knifeAttack 1回のみ
+        this.knifeAttack = new KnifeAttack(60, this, inputManager);
     }
 
-    // シンプルな攻撃メソッド ナイフ
-    public void knifeAttack(Sushi target) {
-        System.out.println(this.name + " は " + target.getName() + " をナイフで切りつけた!");
-        target.damaged(this.power);
-    }
-
-    // 範囲攻撃メソッド お茶
-    public void teaAttack(List<Sushi> targetList) {
-        System.out.println(this.name + " はお茶を撒き散らした!");
-
-        for (Sushi target : targetList) {
-            System.out.println(target.getName() + " にお茶がかかった！");
+    // 攻撃を全て実行するメソッド
+    public void attack(SushiList sushiList) {
+        // 設定回数分 knifeAttack
+        for (int i=0; i<this.numKnife; i++) {
+            this.knifeAttack.attack(sushiList);
+        }
+        // 存在すれば teaAttack, nattoAttack
+        if (teaAttack != null) {
+            this.teaAttack.attack(sushiList);
+        }
+        if (nattoAttack != null) {
+            this.nattoAttack.attack(sushiList);
         }
     }
 
-    // 一部の敵を鈍化させるメソッド 納豆
-    public void nattoAttack(List<Sushi> targetList) {
-        System.out.println(this.name + " は納豆を仕掛けた!");
-    
-        for (Sushi target : targetList) {
-            // 乱数を生成し、ヒットを確率的にする
-            if (random.nextInt(100) < 50) {
-                System.out.println(target.getName() + " がネバネバにかかった！");
-            }
-        }
+    // knifeAttack の実行回数を増やす
+    public void incrementNumKnife() {
+        this.numKnife++;
+    }
+    // teaAttack を有効にする
+    public void enableTeaAttack() {
+        this.teaAttack = new TeaAttack(10, this, 40);
+    }
+    // nattoAttack を有効にするxc
+    public void enableNattoAttack() {
+        this.nattoAttack = new NattoAttack(10, this, 30);
+    }
+
+    // knifeAttack の実行回数を調べる
+    public int getNumKnife() {
+        return this.numKnife;
+    }
+    // teaAttack が有効か調べる
+    public boolean hasTeaAttack() {
+        return teaAttack != null;
+    }
+    // nattoAttack が有効か調べる
+    public boolean hasNattoAttack() {
+        return nattoAttack != null;
     }
 
     // 回復するメソッド
