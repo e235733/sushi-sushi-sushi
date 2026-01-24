@@ -1,24 +1,59 @@
 package game.character.player;
 
-import java.util.List;
-
 import game.InputManager;
+import game.SushiList;
 import game.character.Character;
-import game.character.sushi.Sushi;
 
 public class Player extends Character {
 
-    private Attack knifeAttack, teaAttack;
+    private Attack knifeAttack, teaAttack, nattoAttack = null;
+    private int numKnife = 1;
     
     public Player(String name, int maxHp, InputManager inputManager) {
         super(name, maxHp);
+        // 最初は knifeAttack 1回のみ
         this.knifeAttack = new KnifeAttack(60, this, inputManager);
-        this.teaAttack = new TeaAttack(10, this, 40);
     }
 
-    public void attack(List<Sushi> sushiList) {
-        this.knifeAttack.attack(sushiList);
-        this.teaAttack.attack(sushiList);
+    // 攻撃を全て実行するメソッド
+    public void attack(SushiList sushiList) {
+        // 設定回数分 knifeAttack
+        for (int i=0; i<this.numKnife; i++) {
+            this.knifeAttack.attack(sushiList);
+        }
+        // 存在すれば teaAttack, nattoAttack
+        if (teaAttack != null) {
+            this.teaAttack.attack(sushiList);
+        }
+        if (nattoAttack != null) {
+            this.nattoAttack.attack(sushiList);
+        }
+    }
+
+    // knifeAttack の実行回数を増やす
+    public void incrementNumKnife() {
+        this.numKnife++;
+    }
+    // teaAttack を有効にする
+    public void enableTeaAttack() {
+        this.teaAttack = new TeaAttack(10, this, 40);
+    }
+    // nattoAttack を有効にするxc
+    public void enableNattoAttack() {
+        this.nattoAttack = new NattoAttack(10, this, 30);
+    }
+
+    // knifeAttack の実行回数を調べる
+    public int getNumKnife() {
+        return this.numKnife;
+    }
+    // teaAttack が有効か調べる
+    public boolean hasTeaAttack() {
+        return teaAttack != null;
+    }
+    // nattoAttack が有効か調べる
+    public boolean hasNattoAttack() {
+        return nattoAttack != null;
     }
 
     // 回復するメソッド

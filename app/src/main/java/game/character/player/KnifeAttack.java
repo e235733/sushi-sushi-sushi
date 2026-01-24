@@ -1,9 +1,7 @@
 package game.character.player;
 
-import java.util.List;
-
 import game.InputManager;
-import game.character.sushi.Sushi;
+import game.SushiList;
 
 public class KnifeAttack extends Attack {
 
@@ -15,20 +13,19 @@ public class KnifeAttack extends Attack {
     }
     
     // 攻撃対象を選んでダメージを与えることができる knifeAttack
-    public void attack(List<Sushi> sushiList) {
-        // 入力を要求してターゲットを特定
-        System.out.println("攻撃対象を選んでください");
+    public void attack(SushiList sushiList) {
+        // sushi が存在する場合のみ実行
+        if (sushiList.getNumSushi() != 0) {
+            // 入力を要求してターゲットを特定
+            System.out.println("攻撃対象を選んでください");
+            sushiList.showInfo();
+            int numSushi = sushiList.getNumSushi();
+            int targetId = inputManager.getNumericInput(numSushi);
 
-        int numSushi = sushiList.size();
-        for (int i=0; i<numSushi; i++) {
-            Sushi sushi = sushiList.get(i);
-            System.out.println(i + ". " + sushi.getName() + ", HP: " + sushi.getHp());
+            // ターゲットにダメージを与える
+            System.out.println(this.player.getName() + " は " + sushiList.getName(targetId) + " をナイフで切りつけた！");
+            sushiList.damaged(targetId, this.power);
         }
-        int targetId = inputManager.getNumericInput(numSushi);
-        Sushi target = sushiList.get(targetId);
 
-        // ターゲットにダメージを与える
-        System.out.println(this.player.getName() + " は " + target.getName() + " をナイフで切りつけた！");
-        target.damaged(this.power);
     }
 }

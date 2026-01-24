@@ -1,6 +1,5 @@
 package game;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import game.character.player.Player;
@@ -15,7 +14,7 @@ public class GameManager {
     private boolean isPlayerWinning = false;
 
     private Player player;
-    private List<Sushi> sushiList = new ArrayList<Sushi>();
+    private SushiList sushiList = new SushiList();
     private SushiGenerator sushiGenerator = new SushiGenerator();
     private InputManager inputManager = new InputManager();
 
@@ -30,7 +29,7 @@ public class GameManager {
 
         // ターンをループさせる
         while (true) {
-            // 寿司の生成
+            // sushi の生成
             this.generateSushi();
             // プレイヤーのターン
             this.player.attack(this.sushiList);
@@ -39,18 +38,20 @@ public class GameManager {
             if (this.isPlayerWinning) {
                 break;
             }
-            // 寿司のターン
-            this.sushiTern();
-            // 寿司の攻撃後にプレイヤーが死亡していれば敗北
+            // sushi のターン
+            this.sushiList.attack(this.player);
+            // sushi の攻撃後にプレイヤーが死亡していれば敗北
             if (this.player.isDead()) {
                 System.out.println("You Lose...");
                 break;
             }
-            // 巻き寿司は自滅するのでもう一度勝利判定
+            // rolledSushi は自滅するのでもう一度勝利判定
             this.checkPlayerWinning();
             if (this.isPlayerWinning) {
                 break;
             }
+            // player にナイフを与える
+            player.incrementNumKnife();
             // ターンをインクリメント
             this.turnId++;
         }
@@ -85,28 +86,19 @@ public class GameManager {
         }
     }
 
-    // 寿司のターン
-    private void sushiTern() {
-        for (Sushi sushi : sushiList) {
-            sushi.act(this.player);
-        }
-    }
-
     // 勝利判定
     private void checkPlayerWinning() {
-        // 敵の死亡確認をし、死亡していたらリストから外す
-        this.sushiList.removeIf(sushi -> sushi.isDead());
         // 敵の全滅確認
-        if (this.sushiList.size() == 0) {
+        if (this.sushiList.getNumSushi() == 0) {
             // これ以上のウェーブが存在しない場合、勝利
             if (this.turnId + 1 >= this.sushiGenerator.getNumWaves()) {
-                System.out.println("全ての寿司を倒した。" + this.player.getName() + "の勝利である！");
+                System.out.println("全てのsushi を倒した。" + this.player.getName() + "の勝利である！");
                 this.isPlayerWinning = true;
             }
             // 継続の場合もある
             // そのターンに敵が存在しないことがわかっているときは出力しない
             else if (!this.isRecognizedSushiAbsence){
-                System.out.println("寿司を一掃したが、まだ終わりではないようだ。");
+                System.out.println("sushi を一掃したが、まだ終わりではないようだ。");
                 this.isRecognizedSushiAbsence = true;
             }
         }

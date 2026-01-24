@@ -1,9 +1,8 @@
 package game.character.player;
 
-import java.util.List;
 import java.util.Random;
 
-import game.character.sushi.Sushi;
+import game.SushiList;
 
 public class TeaAttack extends Attack{
 
@@ -16,14 +15,14 @@ public class TeaAttack extends Attack{
     }
 
     // お茶を撒き散らして複数の敵にダメージを与える teaAttack
-    public void attack(List<Sushi> sushiList) {
+    public void attack(SushiList sushiList) {
         System.out.println(this.player.getName() + " はお茶を撒き散らした!");
 
-        for (Sushi target : sushiList) {
+        for (int targetId=0; targetId < sushiList.getNumSushi(); targetId++) {
             // 一定の確率でヒットする
             if (random.nextInt(100) < probability) {
-                System.out.println(target.getName() + " にお茶がかかった！");
-                target.damaged(power);
+                System.out.println(sushiList.getName(targetId) + " にお茶がかかった！");
+                sushiList.damaged(targetId, this.power);
             }
         }
     }

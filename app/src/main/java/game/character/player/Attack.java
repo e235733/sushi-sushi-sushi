@@ -1,8 +1,6 @@
 package game.character.player;
 
-import java.util.List;
-
-import game.character.sushi.Sushi;
+import game.SushiList;
 
 public abstract class Attack {
 
@@ -15,5 +13,5 @@ public abstract class Attack {
     }
 
     // 攻撃メソッド
-    public abstract void attack(List<Sushi> sushiList);
+    public abstract void attack(SushiList sushiList);
 }

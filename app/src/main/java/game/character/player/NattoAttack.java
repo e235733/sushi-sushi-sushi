@@ -1,9 +1,8 @@
 package game.character.player;
 
-import java.util.List;
 import java.util.Random;
 
-import game.character.sushi.Sushi;
+import game.SushiList;
 
 public class NattoAttack extends Attack {
     
@@ -16,13 +15,14 @@ public class NattoAttack extends Attack {
     }
 
     // 複数の敵を鈍化させるメソッド nattoAttack
-    public void attack(List<Sushi> sushiList) {
+    public void attack(SushiList sushiList) {
+
         System.out.println(this.player.getName() + " は納豆を仕掛けた!");
-    
-        for (Sushi target : sushiList) {
+
+        for (int targetId=0; targetId<sushiList.getNumSushi(); targetId++) {
             // 乱数を生成し、ヒットを確率的にする
             if (random.nextInt(100) < probability) {
-                System.out.println(target.getName() + " がネバネバにかかった！");
+                System.out.println(sushiList.getName(targetId) + " がネバネバにかかった！");
                 // ここに鈍化させるメソッドを書く
             }
         }
