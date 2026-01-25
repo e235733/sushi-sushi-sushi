@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import game.character.player.Player;
 import game.character.sushi.Sushi;
@@ -9,6 +10,7 @@ import game.character.sushi.Sushi;
 public class SushiList {
     
     private List<Sushi> sushiList = new ArrayList<Sushi>();
+    private Random random = new Random();
 
     // sushi の追加
     public void add(Sushi sushi) {
@@ -39,9 +41,36 @@ public class SushiList {
 
     // 特定の sushi にダメージを与える
     public void damaged(int sushiId, int power) {
-        sushiList.get(sushiId).damaged(power);
-        removeDead();
+        Sushi targetSushi = sushiList.get(sushiId);
+        targetSushi.damaged(power);
+        // 死亡していれば sushiList から除外する
+        if (targetSushi.isDead()) {
+            sushiList.remove(sushiId);
+        }
     }
+
+    // 全ての sushi に確率的にダメージを与える
+    public void damagedAll(int probability, int power) {
+        // ヒットしたか
+        boolean isHit = false;
+        for (int sushiId=0; sushiId<this.sushiList.size(); sushiId++) {
+            Sushi targetSushi = this.sushiList.get(sushiId);
+            // 一定の確率でヒットする
+            if (random.nextInt(100) < probability) {
+                System.out.println(targetSushi.getName() + " にお茶がかかった！");
+                targetSushi.damaged(power);
+                isHit = true;
+            }
+        }
+        // ヒットしたら死亡確認をして sushiList　から除去する
+        if (isHit) {
+            this.removeDead();
+        }
+        //　しなければヒットなしのメッセージを表示する
+        else {
+            System.out.println("しかし、ヒットしなかった...");
+        }
+    } 
 
     // 特定の sushi の名前を取得
     public String getName(int sushiId) {

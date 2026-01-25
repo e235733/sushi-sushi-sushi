@@ -13,6 +13,8 @@ public class Player extends Character {
         super(name, maxHp);
         // 最初は knifeAttack 1回のみ
         this.knifeAttack = new KnifeAttack(60, this, inputManager);
+        // teaAttack も与える
+        this.teaAttack = new TeaAttack(20, this, 40);
     }
 
     // 攻撃を全て実行するメソッド
