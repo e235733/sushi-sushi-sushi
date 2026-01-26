@@ -8,6 +8,7 @@ import game.character.player.Player;
 public abstract class Sushi extends Character{
 
     private Random random = new Random();
+    protected int xp = 20;
 
     // 攻撃を発動する確率(%)
     private int probability;
@@ -23,7 +24,7 @@ public abstract class Sushi extends Character{
         this.power = calculatePower(level, powerIntercept, powerSlope);
     }
 
-    // 寿司の毎ターンの行動を定める
+    // sushi の毎ターンの行動を定める
     public void act(Player target) {
         // 設定した確率で攻撃する
         if (this.random.nextInt(100) < probability) {
@@ -39,6 +40,11 @@ public abstract class Sushi extends Character{
     private static int calculatePower(int level, int powerIntercept, int powerSlope) {
         int power = powerIntercept + powerSlope * level;
         return power;
+    }
+
+    // 経験値の getter
+    public int getXp() {
+        return this.xp;
     }
 
     // 攻撃メソッド

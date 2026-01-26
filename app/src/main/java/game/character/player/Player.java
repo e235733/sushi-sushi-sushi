@@ -8,6 +8,7 @@ public class Player extends Character {
 
     private Attack knifeAttack, teaAttack, nattoAttack = null;
     private int numKnife = 1;
+    private int playerXp = 0;
     
     public Player(String name, int maxHp, InputManager inputManager) {
         super(name, maxHp);
@@ -19,17 +20,25 @@ public class Player extends Character {
 
     // 攻撃を全て実行するメソッド
     public void attack(SushiList sushiList) {
+        int sumXp = 0;
         // 設定回数分 knifeAttack
         for (int i=0; i<this.numKnife; i++) {
-            this.knifeAttack.attack(sushiList);
+            sumXp += this.knifeAttack.attack(sushiList);
         }
         // 存在すれば teaAttack, nattoAttack
         if (teaAttack != null) {
-            this.teaAttack.attack(sushiList);
+            sumXp += this.teaAttack.attack(sushiList);
         }
         if (nattoAttack != null) {
-            this.nattoAttack.attack(sushiList);
+            sumXp += this.nattoAttack.attack(sushiList);
         }
+        // 獲得 xp を合算
+        this.playerXp += sumXp;
+    }
+
+    // 名前, HP, XP を表示するメソッド
+    public void showStatus() {
+        System.out.println(this.name + ". HP: " + this.hp + ", XP: " + this.playerXp);
     }
 
     // knifeAttack の実行回数を増やす
@@ -51,11 +60,15 @@ public class Player extends Character {
     }
     // teaAttack が有効か調べる
     public boolean hasTeaAttack() {
-        return teaAttack != null;
+        return this.teaAttack != null;
     }
     // nattoAttack が有効か調べる
     public boolean hasNattoAttack() {
-        return nattoAttack != null;
+        return this.nattoAttack != null;
+    }
+    // playerXp の getter
+    public int getPlayerXp() {
+        return this.playerXp;
     }
 
     // 回復するメソッド

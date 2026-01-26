@@ -21,7 +21,6 @@ public abstract class Character {
         System.out.println(this.name + " は " + power + " ダメージを受けた！");
         // 0を下回らないようにする
         this.hp = Math.max(this.hp - power, 0);
-        System.out.println(this.name + "の HP は " + this.hp + " になった！");
 
         // 死亡判定
         if (this.hp == 0) {

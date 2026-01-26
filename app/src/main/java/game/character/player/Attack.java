@@ -13,5 +13,5 @@ public abstract class Attack {
     }
 
     // 攻撃メソッド
-    public abstract void attack(SushiList sushiList);
+    public abstract int attack(SushiList sushiList);
 }

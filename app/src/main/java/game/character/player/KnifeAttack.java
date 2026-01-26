@@ -12,8 +12,12 @@ public class KnifeAttack extends Attack {
         this.inputManager = inputManager;
     }
     
-    // 攻撃対象を選んでダメージを与えることができる knifeAttack
-    public void attack(SushiList sushiList) {
+    /**
+     * 攻撃対象を選んでダメージを与えることができる knifeAttack
+     * 倒したら経験値を獲得する
+     */
+    public int attack(SushiList sushiList) {
+        int gotXp = 0;
         // sushi が存在する場合のみ実行
         if (sushiList.getNumSushi() != 0) {
             // 入力を要求してターゲットを特定
@@ -24,8 +28,8 @@ public class KnifeAttack extends Attack {
 
             // ターゲットにダメージを与える
             System.out.println(this.player.getName() + " は " + sushiList.getName(targetId) + " をナイフで切りつけた！");
-            sushiList.damaged(targetId, this.power);
+            gotXp += sushiList.damagedAndGetXp(targetId, this.power);
         }
-
+        return gotXp;
     }
 }

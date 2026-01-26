@@ -52,6 +52,8 @@ public class GameManager {
             }
             // player にナイフを与える
             player.incrementNumKnife();
+            // ターン終了時の player のステータスを表示
+            player.showStatus();
             // ターンをインクリメント
             this.turnId++;
         }

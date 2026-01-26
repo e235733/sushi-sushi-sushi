@@ -1,6 +1,7 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -39,37 +40,48 @@ public class SushiList {
         removeDead();
     }
 
-    // 特定の sushi にダメージを与える
-    public void damaged(int sushiId, int power) {
+    // 特定の sushi にダメージを与え、経験値を得る
+    public int damagedAndGetXp(int sushiId, int power) {
         Sushi targetSushi = sushiList.get(sushiId);
+        // ダメージを与える
         targetSushi.damaged(power);
-        // 死亡していれば sushiList から除外する
+        // 死亡していれば経験値を獲得し、 sushiList から除外する
+        int xp = 0;
         if (targetSushi.isDead()) {
-            sushiList.remove(sushiId);
+            xp += targetSushi.getXp();
+            this.sushiList.remove(sushiId);
         }
+        return xp;
     }
 
-    // 全ての sushi に確率的にダメージを与える
-    public void damagedAll(int probability, int power) {
-        // ヒットしたか
+    // 全ての sushi に確率的にダメージを与え、経験値を得る
+    public int damagedAllAndGetSumXp(int probability, int power) {
+
+        int sumXp = 0;
         boolean isHit = false;
-        for (int sushiId=0; sushiId<this.sushiList.size(); sushiId++) {
-            Sushi targetSushi = this.sushiList.get(sushiId);
+
+        // イテレータで走査する
+        Iterator<Sushi> it = sushiList.iterator();
+        while(it.hasNext()) {
+            Sushi targetSushi = it.next();
+
             // 一定の確率でヒットする
             if (random.nextInt(100) < probability) {
                 System.out.println(targetSushi.getName() + " にお茶がかかった！");
                 targetSushi.damaged(power);
+                // 死亡していたら、経験値獲得
+                if (targetSushi.isDead()) {
+                    sumXp += targetSushi.getXp();
+                }
                 isHit = true;
             }
         }
-        // ヒットしたら死亡確認をして sushiList　から除去する
-        if (isHit) {
-            this.removeDead();
-        }
-        //　しなければヒットなしのメッセージを表示する
-        else {
+        //　ヒットしなければヒットなしのメッセージを表示する
+        if (!isHit) {
             System.out.println("しかし、ヒットしなかった...");
         }
+
+        return sumXp;
     } 
 
     // 特定の sushi の名前を取得

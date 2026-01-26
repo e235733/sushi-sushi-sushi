@@ -15,7 +15,7 @@ public class NattoAttack extends Attack {
     }
 
     // 複数の敵を鈍化させるメソッド nattoAttack
-    public void attack(SushiList sushiList) {
+    public int attack(SushiList sushiList) {
 
         System.out.println(this.player.getName() + " は納豆を仕掛けた!");
 
@@ -26,5 +26,7 @@ public class NattoAttack extends Attack {
                 // ここに鈍化させるメソッドを書く
             }
         }
+
+        return 0;
     }
 }
